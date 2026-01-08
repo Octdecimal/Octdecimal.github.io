@@ -1,0 +1,24 @@
+# 檔案位置: {user}.github.io/.github/workflows/trigger-quartz.yml
+
+name: Trigger Quartz Build
+
+on:
+  push:
+    branches:
+      - main  # 或是你存放 Markdown 原始碼的分支名稱
+    paths:
+      - '**/*.md'     # 只有 Markdown 變更時才觸發 (選用)
+      - '**/*.png'    # 或圖片
+      - '**/*.jpg'
+
+jobs:
+  notify:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Fire Repository Dispatch
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.ACCESS_TOKEN_FOR_QUARTZ }}
+          repository: Octdecimal/quartz-site  # 你的 Private Quartz Repo 名稱
+          event-type: build-trigger            # 必須跟接收端的 types 對應
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
