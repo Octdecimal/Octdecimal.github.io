@@ -1,0 +1,72 @@
+name: Deploy Quartz Site
+
+on:
+  # 允許手動觸發
+  workflow_dispatch:
+  repository_dispatch:    # <--- 新增這裡
+    types: [io-build-trigger] # 定義一個事件名稱，發送端要對上
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Acknowledge Trigger
+        run: |
+          echo "Triggered by event type: ${{ github.event.action }}"
+          echo "Client payload (optional): ${{ toJSON(github.event.client_payload) }}"
+
+      - name: Checkout Quartz Engine
+        uses: actions/checkout@v4
+        with:
+          # 這裡 Checkout Quartz 本身的程式碼
+          path: quartz 
+          ref: ${{ github.event.client_payload.engine_branch || 'main' }}  # 可選：從 payload 取得分支，預設為 main
+
+      - name: Checkout Content (Your Submodule)
+        uses: actions/checkout@v4
+        with:
+          repository: Octdecimal/Toku_notes    # 你的 Submodule Repo
+          ref: main                            # 你的 Markdown 所在的來源分支
+          path: quartz/content                 # 關鍵！把內容直接載入到 Quartz 的 content 資料夾
+          # 如果你的 Submodule 是 Private 的，這裡需要 token
+          token: ${{ secrets.ACCESS_TOKEN_FOR_QUARTZ }} 
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+          cache-dependency-path: quartz/package-lock.json
+
+      - name: Install Dependencies
+        working-directory: quartz
+        run: npm ci
+
+      - name: Build Quartz
+        working-directory: quartz
+        run: npx quartz build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: quartz/public
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
