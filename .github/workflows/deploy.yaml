@@ -29,7 +29,7 @@ jobs:
         with:
           # 這裡 Checkout Quartz 本身的程式碼
           path: quartz 
-          ref: ${{ github.event.client_payload.engine_branch || 'main' }}  # 可選：從 payload 取得分支，預設為 main
+          ref: ${{ github.event.client_payload.engine_branch || 'website' }}  # 可選：從 payload 取得分支，預設為 website
 
       - name: Checkout Content (Your Submodule)
         uses: actions/checkout@v4
@@ -53,9 +53,7 @@ jobs:
 
       - name: Build Quartz
         working-directory: quartz
-        run: |
-          chmod +x node_modules/.bin/quartz
-          npx quartz build
+        run: npx quartz build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
