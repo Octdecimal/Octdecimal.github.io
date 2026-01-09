@@ -25,14 +25,14 @@ jobs:
           echo "Client payload (optional): ${{ toJSON(github.event.client_payload) }}"
 
       - name: Checkout Quartz Engine
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # 這裡 Checkout Quartz 本身的程式碼
           path: quartz 
           ref: ${{ github.event.client_payload.engine_branch || 'website' }}  # 可選：從 payload 取得分支，預設為 website
 
       - name: Checkout Content (Your Submodule)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: Octdecimal/Toku_notes    # 你的 Submodule Repo
           ref: main                            # 你的 Markdown 所在的來源分支
@@ -41,7 +41,7 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN_FOR_QUARTZ }} 
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: "npm"
@@ -56,7 +56,7 @@ jobs:
         run: node node_modules/quartz/quartz.js build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: quartz/public
 
