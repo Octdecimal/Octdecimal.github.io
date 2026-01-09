@@ -53,9 +53,7 @@ jobs:
 
       - name: Build Quartz
         working-directory: quartz
-        run: |
-          chmod +x node_modules/.bin/quartz
-          npx quartz build
+        run: node node_modules/quartz/quartz.js build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
