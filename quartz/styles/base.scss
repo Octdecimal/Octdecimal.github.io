@@ -4,10 +4,6 @@
 @use "./syntax.scss";
 @use "./callouts.scss";
 
-:root {
-  font-family: "Fira Code", "Noto Sans TC", "Noto Sans SC", "Noto Sans JP";
-  font-feature-settings: "calt" 1, "liga" 1, "clig" 1, "ss01" 1, "ss02" 1, "ss03" 1, "ss05" 1, "ss07" 1, "cv01" 1, "cv02" 1, "cv06" 1, "cv09" 1, "zero" 1;
-}
 
 html {
   scroll-behavior: smooth;
