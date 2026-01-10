@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           # 這裡 Checkout Quartz 本身的程式碼
-          path: quartz 
+          path: ./ 
           ref: ${{ github.event.client_payload.engine_branch || 'website' }}  # 可選：從 payload 取得分支，預設為 website
 
       - name: Checkout Content (Your Submodule)
@@ -36,7 +36,7 @@ jobs:
         with:
           repository: Octdecimal/Toku_notes    # 你的 Submodule Repo
           ref: main                            # 你的 Markdown 所在的來源分支
-          path: quartz/content                 # 關鍵！把內容直接載入到 Quartz 的 content 資料夾
+          path: ./content                 # 關鍵！把內容直接載入到 Quartz 的 content 資料夾
           # 如果你的 Submodule 是 Private 的，這裡需要 token
           token: ${{ secrets.ACCESS_TOKEN_FOR_QUARTZ }} 
 
@@ -45,20 +45,20 @@ jobs:
         with:
           node-version: 22
           cache: "npm"
-          cache-dependency-path: quartz/package-lock.json
+          cache-dependency-path: ./package-lock.json
 
       - name: Install Dependencies
-        working-directory: quartz
+        working-directory: ./
         run: npm ci
 
       - name: Build Quartz
-        working-directory: quartz
+        working-directory: ./
         run: npx quartz build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: quartz/public
+          path: ./public
 
   deploy:
     needs: build
