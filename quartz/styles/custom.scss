@@ -3,7 +3,7 @@
 // put your custom CSS here!
 @font-face {
   font-family: "Fira Code";
-  src: url("/fonts/FiraCode-Regular.ttf") format("truetype");
+  src: url("/static/FiraCode-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -11,7 +11,7 @@
 
 @font-face {
     font-family: "Fira Code";
-    src: url("/fonts/FiraCode-Bold.ttf") format("truetype");
+    src: url("/static/FiraCode-Bold.ttf") format("truetype");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -19,7 +19,7 @@
 
 @font-face {
   font-family: "Noto Sans TC";
-  src: url("/fonts/NotoSansTC-VF.ttf") format("truetype");
+  src: url("/static/NotoSansTC-VF.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -27,7 +27,7 @@
 
 @font-face {
   font-family: "Noto Sans SC";
-  src: url("/fonts/NotoSansSC-VariableFont.ttf") format("truetype");
+  src: url("/static/NotoSansSC-VariableFont.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -35,7 +35,7 @@
 
 @font-face {
   font-family: "Noto Sans JP";
-  src: url("/fonts/NotoSansJP-VF.ttf") format("truetype");
+  src: url("/static/NotoSansJP-VF.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;

@@ -8,8 +8,8 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "御門トクテル　(Mikado Tokuteru)",
-    pageTitleSuffix: "",
+    pageTitle: "御門トクテル",
+    pageTitleSuffix: "Mikado Tokuteru",
     enableSPA: true,
     enablePopovers: true,
     analytics: {
