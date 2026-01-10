@@ -1,4 +1,5 @@
 ---
+date: "{{date}} {{time}}"
 tags:
   - 深淵
 ---
