@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Quartz 5
-  pageTitleSuffix: ""
+  pageTitle: 御門トクテル
+  pageTitleSuffix: Mikado Tokuteru
   enableSPA: true
   enablePopovers: true
   analytics:
@@ -12,13 +12,19 @@ configuration:
     - private
     - templates
     - .obsidian
+    - .git
+    - .gitignore
+    - .github
+    - .gitmodules
+    - Dream&Abyss
+    - Templates
   theme:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: Source Sans Pro
-      code: IBM Plex Mono
+      header: JetBrains Mono
+      body: JetBrains Mono
+      code: JetBrains Mono
     colors:
       lightMode:
         light: "#faf8f8"
@@ -164,6 +170,9 @@ plugins:
       priority: 50
   - source: "@quartz-community/graph"
     enabled: true
+    options:
+      localGraph:
+        depth: 2
     layout:
       position: right
       priority: 10
