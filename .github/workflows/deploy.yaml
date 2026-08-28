@@ -29,7 +29,7 @@ jobs:
         with:
           # 這裡 Checkout Quartz 本身的程式碼
           path: ./ 
-          ref: ${{ github.event.client_payload.engine_branch || 'website' }}  # 可選：從 payload 取得分支，預設為 website
+          ref: ${{ github.event.client_payload.engine_branch || 'v5-1' }}  # 可選：從 payload 取得分支，預設為 v5-1
 
       - name: Checkout Content (Your Submodule)
         uses: actions/checkout@v6
@@ -47,9 +47,29 @@ jobs:
           cache: "npm"
           cache-dependency-path: ./package-lock.json
 
+      - name: Cache dependencies
+        uses: actions/cache@v5
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Cache Quartz plugins
+        uses: actions/cache@v5
+        with:
+          path: .quartz/plugins
+          key: ${{ runner.os }}-plugins-${{ hashFiles('quartz.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-plugins-
+
       - name: Install Dependencies
         working-directory: ./
         run: npm ci
+
+      - name: Install Quartz plugins
+        working-directory: ./
+        run: npx quartz plugin install
 
       - name: Build Quartz
         working-directory: ./
