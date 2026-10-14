@@ -76,7 +76,6 @@ jobs:
 
       - name: Build Quartz
         working-directory: ./
-        working-directory: ./
         run: |
           pwd
           ls -al
