@@ -65,7 +65,10 @@ jobs:
 
       - name: Install Dependencies
         working-directory: ./
-        run: npm ci
+        run: |
+          pwd
+          ls -al
+          npm ci
 
       - name: Install Quartz plugins
         working-directory: ./
@@ -73,7 +76,11 @@ jobs:
 
       - name: Build Quartz
         working-directory: ./
-        run: npx quartz build
+        working-directory: ./
+        run: |
+          pwd
+          ls -al
+          npx quartz build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
